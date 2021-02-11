@@ -13,7 +13,7 @@ The system also allows employers to manage desk bookings with ease between mutli
 # Information
 - Written in Java using Java Servlet Pages (JSP)
 - Allows for multiple offices and booking managment between offices
-- Can integrate with MySQL servers
+- Can integrate with MySQL databases
 
 # Features
 - Admin Panel for each office
