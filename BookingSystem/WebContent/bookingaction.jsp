@@ -32,6 +32,7 @@
     String name = "";
     String phonenumtemp = "";
     long phonenum = 0;
+    String error = "";
     //If the number of seats is less than 0 or 0 then return an invalid number error
     if(Integer.parseInt(seatstemp) < 0 || Integer.parseInt(seatstemp) == 0) {
     	response.sendRedirect("booking.jsp?office="+officeName+"&error=negseats");
@@ -48,13 +49,13 @@
         Matcher matcher = regExPattern.matcher(email);
         //If no user information was provided then return an error asking for user information
         if(name.isEmpty() || email.isEmpty() || phonenumtemp.isEmpty()) {
-        	response.sendRedirect("booking.jsp?office="+officeName+"&error=nodetails");
+        	error = "nodetails";
         	allowAdvance = false;
         	phonenumtemp = "0";
         }
         //If the email does not match the regex then return an error
         if(!(matcher.matches())) {
-        	response.sendRedirect("booking.jsp?office="+officeName+"&error=email");
+        	error = "email";
         	allowAdvance = false;
         }
         //parse phonenumber as a long
@@ -73,6 +74,9 @@
     	userID = (int)session.getAttribute("userID");
     	name = (String)session.getAttribute("username");
     	email = (String)session.getAttribute("email");
+    }
+    if(allowAdvance == false ) {
+    	response.sendRedirect("booking.jsp?office=" + officeName + "&error="+error);
     }
     //Query the office from the databases with the officeID
 	int officeID = Integer.parseInt(officeIDtemp);

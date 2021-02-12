@@ -65,7 +65,7 @@
     } else if(error.equals("nodetails")) {
     	error = "You have not provided contact details";
     } else if(error.equals("email")) {
-    	error = "Your email must be @lsh.co.uk";
+    	error = "Your email must be @lsh.co.uk or @lsh.com";
     }
     //Get the office data of the current office from the database
 	com.server.Office office = com.server.DataBase.queryOfficeSingleName(name);

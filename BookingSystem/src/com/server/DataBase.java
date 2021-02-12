@@ -470,6 +470,7 @@ public class DataBase {
 		return null;
     }
     public static ArrayList<Booking> queryAllBookingOffice() throws ClassNotFoundException {
+    	//Query all bookings in the table
     	Class.forName("com.mysql.jdbc.Driver");
     	try {
     		//Open a connection to the database with the provided information
@@ -487,14 +488,15 @@ public class DataBase {
     		PreparedStatement statement = connection.prepareStatement(query, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
     		//Execute a SELECT aggregate SQL function that gets all data from the users table
             ResultSet rs = statement.executeQuery("SELECT * FROM booking");
-
+            //Get table size
             rs.last();
             int size = rs.getRow();
             rs.first();
 
             ArrayList<Booking> bookingList = new ArrayList();
-
+            //loop for all bookings and add each booking to a booking arraylist
             for (int i = 1; i <= size; i++) {
+            	//get booking data
                 int bookingID = rs.getInt("bookingID");
                 int officeID = rs.getInt("officeID");
                 int userID = rs.getInt("userID");
@@ -503,9 +505,12 @@ public class DataBase {
                 int numberdesks = rs.getInt("numberdesks");
                 String status = rs.getString("bookingStatus");
                 Booking x = new Booking(officeID, bookingID, userID, date, time, numberdesks, status);
+                //add to booking arraylist
                 bookingList.add(x);
+                //move the result set down to next line
                 rs.next();
             }
+            //return the arraylist
             return bookingList;
     	} catch (Exception e) {
     		System.out.println(e);
@@ -514,6 +519,7 @@ public class DataBase {
     }
     
     public static int[] createBooking(ArrayList<Booking> booking) throws ClassNotFoundException {
+    	//Create a new booking in the booking table
     	Class.forName("com.mysql.jdbc.Driver");
     	try {
     		//Open a connection to the database with the provided information
@@ -532,11 +538,14 @@ public class DataBase {
     		//Execute a SELECT aggregate SQL function that gets all data from the users table
             ResultSet rs = statement.executeQuery("SELECT * FROM booking");
             int id[] = new int[booking.size()];
+            //get the id to use from the last current row + 1
             rs.last();
         	int bookingID = rs.getRow() + 1;
             for (int i = 0; i < booking.size(); i++) {
             	bookingID = rs.getRow() + i;
+            	//Move to the next row that is free to insert data
             	rs.moveToInsertRow();
+            	//Update collums with data
                 rs.updateInt("officeID", booking.get(i).getOfficeid());
                 rs.updateInt("userID", booking.get(i).getUserID());
                 rs.updateString("date", booking.get(i).getDate());
@@ -553,6 +562,7 @@ public class DataBase {
     }
     
     public static void editUserAccount(String emailToUpdate, String password, String name, long phonenum, boolean updatePassword, boolean updateName, boolean updatePhonenum) throws Exception {
+    	//Edit an existing user account in user table
     	Class.forName("com.mysql.jdbc.Driver");
     	try {
     		//Open a connection to the database with the provided information
@@ -570,25 +580,30 @@ public class DataBase {
     		PreparedStatement statement = connection.prepareStatement(query, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
     		//Execute a SELECT aggregate SQL function that gets all data from the users table
             ResultSet rs = statement.executeQuery("SELECT * FROM users");
-            
+            //get table size
             rs.last();
             int size = rs.getRow();
             rs.first();
-            
+            //loop for all bookings and find the user account from the email
             for (int i = 1; i <= size; i++) {
                 
                 String userRetreive = rs.getString("email");
                 int currentID = rs.getInt("userId");
+                //Use the email to update parameter to find the user account
                 if (emailToUpdate.equals(userRetreive)) {
+                	//If the user entered a password change then update the password
                     if(updatePassword == true) {
+                    	//hash the password before updating it in the database
                     	String passwordnew = passwordEncryption.hasher(password);
                     	rs.updateString("password", passwordnew);
                     	System.out.println("Changed pw");
                     }
+                    //Update the name if selected
                     if(updateName == true) {
                     	rs.updateString("name", name);
                     	System.out.println("Changed name");
                     }
+                  //Update the phonenum if selected
                     if(updatePhonenum == true) {
                     	rs.updateLong("phonenum", phonenum);
                     	System.out.println("Changed phonenum");
@@ -603,6 +618,7 @@ public class DataBase {
     	}
     }
     public static void updateBookingStatus(int bookingID, String message) throws ClassNotFoundException {
+    	//Update the current booking status in the database (waiting or approved)
     	Class.forName("com.mysql.jdbc.Driver");
     	try {
     		//Open a connection to the database with the provided information
@@ -620,15 +636,17 @@ public class DataBase {
     		PreparedStatement statement = connection.prepareStatement(query, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
     		//Execute a SELECT aggregate SQL function that gets all data from the users table
             ResultSet rs = statement.executeQuery("SELECT * FROM booking");
-            
+            //If there is no messsage then update the booking with the message parameter. (Currently has no functionality but will in the future)
             if(message == null || message.isEmpty()) {
-            
+            //Get table size
             rs.last();
             int size = rs.getRow() + 1;
             rs.first();
+            //Loop for all bookings and find the booking from the ID
             for (int i = 0; i < size; i++) {
             	int bookingIDtemp = rs.getInt("bookingID");
             	if(bookingIDtemp == bookingID) {
+            		//Update the booking status
             		rs.updateString("bookingStatus", "approved");
             		rs.updateRow();
             		System.out.println("success");
@@ -637,7 +655,7 @@ public class DataBase {
             	rs.next();
             }
             } else {
-            	
+            	//Update with message like above
             	rs.last();
                 int size = rs.getRow() + 1;
                 rs.first();
@@ -659,6 +677,7 @@ public class DataBase {
     	}
     }
     public static void deleteBooking(int bookingID) throws ClassNotFoundException {
+    	//Delete a booking in the bookings table
     	Class.forName("com.mysql.jdbc.Driver");
     	try {
     		//Open a connection to the database with the provided information
@@ -676,15 +695,19 @@ public class DataBase {
     		PreparedStatement statement = connection.prepareStatement(query, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
     		//Execute a SELECT aggregate SQL function that gets all data from the users table
             ResultSet rs = statement.executeQuery("SELECT * FROM booking");
+            //Get size of table
             rs.last();
             int size = rs.getRow() + 1;
             rs.first();
+            //Loop for all bookings and find the booking with the bookingID to delete
             for (int i = 0; i < size; i++) {
             	int bookingIDtemp = rs.getInt("bookingID");
             	if(bookingIDtemp == bookingID) {
+            		//Delete the row (booking)
             		rs.deleteRow();
             		break;
             	}
+            	//Move result set to next line
             	rs.next();
             }
             System.out.println("success");

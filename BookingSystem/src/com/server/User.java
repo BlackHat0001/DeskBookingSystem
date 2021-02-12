@@ -1,8 +1,13 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+  	File: User.java
+	
+	Author: Daniel Marcovecchio 
+	Author URI: https://github.com/BlackHat0001
+	
+	Description: User class
+	
+	Version: 1.2.0 Release
+*/
 package com.server;
 
 /**
@@ -10,7 +15,8 @@ package com.server;
  * @author danma
  */
 public class User {
-    
+    //User class
+	//Setup variables
     String name;
     String email;
     String encryptedpass;
@@ -18,6 +24,7 @@ public class User {
     int userId;
     boolean isAdmin;
     public User(String name, String email, String encryptedpass, long phonenum, int userId, boolean isAdmin) throws Exception {
+    	//Constructor for user class
         this.name = name;
         this.email = email;
         this.encryptedpass = encryptedpass;
@@ -27,6 +34,7 @@ public class User {
     }
 
     public User(String name, String email, String encryptedpass, long phonenum) throws Exception {
+    	//Constructor for user class
         this.name = name;
         this.email = email;
         this.encryptedpass = encryptedpass;
@@ -34,6 +42,7 @@ public class User {
     }
     
     public User(String name, String email, long phonenum) throws Exception {
+    	//Constructor for user class
         this.name = name;
         this.email = email;
         this.phonenum = phonenum;

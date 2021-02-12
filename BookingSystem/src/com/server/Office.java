@@ -1,8 +1,13 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+  	File: Office.java
+	
+	Author: Daniel Marcovecchio 
+	Author URI: https://github.com/BlackHat0001
+	
+	Description: Office class
+	
+	Version: 1.2.0 Release
+*/
 package com.server;
 
 
@@ -12,6 +17,8 @@ package com.server;
  * @author danma
  */
 public class Office {
+	//Class for the office class.
+	//Setup variables
     int officeID;
     String officeName;
     int seatsAvailable;
@@ -19,6 +26,7 @@ public class Office {
     int officeCloses;
     int maxSlotsPerDay;
     public Office(int officeID, String officeName, int seatsAvailable, int officeOpens, int officeCloses, int maxSlotsPerDay) {
+    	//Constructor for office class
         this.officeID = officeID;
         this.officeName = officeName;
         this.seatsAvailable = seatsAvailable;

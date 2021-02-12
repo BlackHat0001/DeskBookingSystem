@@ -1,8 +1,20 @@
+/*
+  	File: EmailStrings.java
+	
+	Author: Daniel Marcovecchio 
+	Author URI: https://github.com/BlackHat0001
+	
+	Description: Stores the html styling for the emails. Returns the built message in string form.
+	
+	Version: 1.2.0 Release
+*/
 package com.server;
 
 public class EmailStrings {
 	
 	public static String booking(String type, String officeName, String seats, String hour, String min, String additional1, String hourend, String minend, String additional2, String notes, String output) {
+		//Returns the message string for the booking confirmation email
+		//If the type = simple then returns a string with no html styling
 		if(type.equals("simple")) {
 			return "Thank you for your booking. Your details are below: \n" + 
 		    		"        Office: "+officeName+"\n" + 
@@ -13,6 +25,7 @@ public class EmailStrings {
 		    		"        \n" + 
 		    		"        "+output+"\n";
 		} 
+		//WARNING. THE FOLLOWING STRING IS NOT MY CODE. CREDI: https://www.campaignmonitor.com
 		return "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional //EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\"><!--[if IE]><html xmlns=\"http://www.w3.org/1999/xhtml\" class=\"ie\"><![endif]--><!--[if !IE]><!--><html style=\"margin: 0;padding: 0;\" xmlns=\"http://www.w3.org/1999/xhtml\"><!--<![endif]--><head>\r\n" + 
 	    		"    <meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\" />\r\n" + 
 	    		"    <title></title>\r\n" + 
@@ -588,9 +601,12 @@ public class EmailStrings {
 		}
 	
 		public static String adminData(String type, String officeName, String displayTime, String bookingDate) {
+			//Returns the message string for the booking denied email
+			//If the type = simple then returns a string with no html styling
 			if(type.equals("simple")) {
 				return "";
 			}
+			//WARNING. THE FOLLOWING STRING IS NOT MY CODE. CREDI: https://www.campaignmonitor.com
 			return "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional //EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\"><!--[if IE]><html xmlns=\"http://www.w3.org/1999/xhtml\" class=\"ie\"><![endif]--><!--[if !IE]><!--><html style=\"margin: 0;padding: 0;\" xmlns=\"http://www.w3.org/1999/xhtml\"><!--<![endif]--><head>\r\n" + 
     		"    <meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\" />\r\n" + 
     		"    <title></title>\r\n" + 
