@@ -4,7 +4,7 @@ The system allows employees to book desks at their chosen office in order to not
 The system also allows employers to manage desk bookings with ease between mutliple offices and setup new offices for bookings quickly.
 
 # Version
-1.2.0 - Release
+1.2.1 - Release
 
 # Credits
 - Author: Daniel Marcovecchio 
